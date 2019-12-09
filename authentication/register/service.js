@@ -1,14 +1,12 @@
   
 //const pool = require("../../config/database");
-
-function doSomething(data){
-    data.serverVal = "The server has handled this";
-    return data;
-}
+const userModel = require("./model");
 
 module.exports = {
+    create: (data)=>{
+    },
     register: (data,callBack)=>{
-        data = doSomething(data);
-        callBack(null,data);
+        var user = userModel.create(data);
+        return callBack(null,user);
     }
 }
