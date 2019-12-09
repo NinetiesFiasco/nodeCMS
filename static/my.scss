@@ -1,0 +1,7 @@
+input[type='button']{
+    background: yellow;
+    cursor: pointer;
+    &:hover{
+        background: red;
+    }
+}
