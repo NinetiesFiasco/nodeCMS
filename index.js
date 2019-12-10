@@ -7,12 +7,14 @@ DB();
 
 const {Page} = require('./page.js');
 const registerRouter = require('./authentication/register/router.js');
+const enterRouter = require('./authentication/enter/router.js');
 
 app.use(express.static(__dirname + "/production"));
 
 app.use(express.json());
 
 app.use('/register',registerRouter); 
+app.use('/enter',enterRouter);
 
 app.get('/data', (req,res)=>{
     res.send('anyData');

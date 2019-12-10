@@ -1,4 +1,6 @@
 const handle = require('./react/handlers');
+const enter = require('./react/enterTable');
+const register = require('./react/registerTable');
 
 
 
@@ -13,7 +15,7 @@ const Page = `
 
 <body>
     <div id='reactApp'></div>
-    `+handle+`
+    `+handle+enter+register+`
 </body>
 `;
 

@@ -7,14 +7,14 @@ const enter = `
     </thead>
     <tr>
         <td>Логин</td>
-        <td><input type='text' name='enterLogin'/></td>
+        <td><input type='text' id='ELogin'/></td>
     </tr>
     <tr>
         <td>Пароль</td>
-        <td><input  type='password' name='enterPassword'/></td>
+        <td><input  type='password' id='EPass'/></td>
     </tr>
     <tr>
-        <td colspan='2'><input type='button' name='Enter' value='Войти'/></td>
+        <td colspan='2'><input type='button' id='Enter' value='Войти'/></td>
     </tr>
 </table>`;
 
