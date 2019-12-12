@@ -16,6 +16,9 @@ const enter = `
     <tr>
         <td colspan='2'><input type='button' id='Enter' value='Войти'/></td>
     </tr>
+    <tr>
+        <td colspan='2'><input type='button' id='Exit' value='Выйти'/></td>
+    </tr>
 </table>`;
 
 module.exports = enter;

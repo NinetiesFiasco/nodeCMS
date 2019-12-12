@@ -1,6 +1,4 @@
 $(()=>{
-    alert('Hello tut');
-
     $('#funnyBut').click(()=>{
         $.get( "/data", ( data ) => {
             alert( data );
@@ -9,6 +7,8 @@ $(()=>{
 
     $('#Register').click(register);
     $('#Enter').click(enter);
+    $('#Exit').click(exit);
+    AuthenticationInfo();
 });
 
 function enter(){
@@ -27,11 +27,12 @@ function enter(){
         data: JSON.stringify(clientData),
         success: function(response){
             console.log(response);
-            alert(response);
+            AuthenticationInfo();
         }
     });
 
 }
+
 
 function register(){
 
@@ -41,8 +42,6 @@ function register(){
         email: $('#REmail').val()            
     }
 
-    console.log(clientData);
-
     $.ajax({
         url: '/register',
         type: 'POST',
@@ -50,8 +49,30 @@ function register(){
         data: JSON.stringify(clientData),
         success: function(response){
             console.log(response);
-            alert(response);
         }
     });
     
 }
+
+function exit(){
+    $.ajax({
+        url: '/enter/exit',
+        type: 'GET',
+        success: function(response){
+            console.log(response);
+            AuthenticationInfo();
+        }
+    });
+}
+
+function AuthenticationInfo(){
+    var token = getCookie("logToken");
+    $('#AuthenticationInfo').html(token?"Авторизован":"Не авторизован");
+}
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }

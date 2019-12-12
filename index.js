@@ -1,9 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const DB = require("./config/database.js");
-
-DB();
 
 const {Page} = require('./page.js');
 const registerRouter = require('./authentication/register/router.js');

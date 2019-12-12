@@ -1,27 +1,29 @@
-  
-const userModel = require("../user/model");
+const MongoClient = require('mongodb').MongoClient,
+    ObjectID = require('mongodb').ObjectID;
 
-function testUserErr(data,callBack){
-    let message = "";
-    if (data.login.length<4)
-        message = "Логин слишком короткий";
-    else if(userModel.find({login: data.login}).toArray().length>0)
-        message = "Логин занят";    
-    else if (userModel.find({email: data.email}).toArray().length>0)
-        message = "Email Занят";
-    return {
-        success: message==""?1:0,
-        message: message
-    };
-}
 
 module.exports = {
     register: (data,callBack)=>{
-        var test = testUserErr(data);
-        if (test.success==0)
-            return test;
-        
-        var user = userModel.create(data);
-        return callBack(null,user);
+
+        if (data.login.length<4)
+            return callBack({success:0,message:"Логин слишком короткий"});
+
+        MongoClient.connect(process.env.DB_URL,{useNewUrlParser:true, useUnifiedTopology:true},(err,client)=>{
+            const db = client.db("testUsers");
+            const col = db.collection("users");
+            
+            col.findOne({$or : [{login: data.login},{email: data.email}]},(err,user)=>{
+
+                if (user)
+                    return callBack('Логин или email занфт или и то и то');
+                
+
+                col.insertOne(data,(err,result)=>{                    
+                    if (err) return callBack('myErr:' + err);                    
+
+                    return callBack(null,result.ops[0]);
+                });
+            });
+        });   
     }
 }
